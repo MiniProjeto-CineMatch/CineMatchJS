@@ -10,12 +10,12 @@ Conteúdo
 ├── Filme
 ├── Série
 ├── Anime
-└── Documentário
+└── Documentáriooooo
 
 3- Quais características cada entidade possui?
 
 
-4- Como elas se relacionam?
+4- Como elas se relacionam
 
 
 5- Só então começa a escrever código.
