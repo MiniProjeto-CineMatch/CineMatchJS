@@ -3,14 +3,26 @@
 1- O que existe no sistema?
 
 
-2- Quais são as entidades?
+2- Árvore do projeto:
 
-Conteúdo
+📁 CineMatch
 │
-├── Filme
-├── Série
-├── Anime
-└── Documentáriooooo
+├── index.js
+│
+├── 📁 dados
+│   ├── usuario.js
+│   └── catalogo.js
+│
+├── 📁 funcoes
+│   ├── exibirPerfil.js
+│   ├── exibirCatalogo.js
+│   ├── calcularCompatibilidade.js
+│   └── exibirRecomendacao.js
+│
+├── 📁 sistema
+│   └── menu.js
+│
+└── README.md
 
 3- Quais características cada entidade possui?
 
@@ -23,6 +35,5 @@ Conteúdo
 
 Autores do projeto:
 - Stefani Hermel
-teste adriano enviando teste de alteração 
-fazendo teste,testando e enviando 
-
+- Adriano Alves
+- Anderson Alves
