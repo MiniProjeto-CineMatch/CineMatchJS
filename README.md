@@ -20,5 +20,4 @@ Conteúdo
 
 5- Só então começa a escrever código.
 
-Autores do projeto:
-- Stefani Hermel
+
