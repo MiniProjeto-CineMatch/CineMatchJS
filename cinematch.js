@@ -1,20 +1,26 @@
-const prompt = require('prompt-sync')({sigint: true});
+//const prompt = require('prompt-sync')({sigint: true});
 
 
-const usuario = [{
-    nome: "Anderson",
-    idade: 16,
-    email: "sctec@gmail.com"   
-},{
-    nome: "Stefani",
-    idade: 19,
-    email: "sctec2@gmail.com"   
-},{
-    nome: "Adriano",
-    idade: 22,
-    email: "sctec3@gmail.com"   
-}
+const listaUsuarios = [{
+    nome:"Anderson",
+    idade: 30,  
+    generosFavoritos: ["Ação", "Drama", "Terror", "Ficção", "Comedia","Adulto"]
+    },{
+    nome:"Matheus",
+    idade: 26,  
+    generosFavoritos: ["Ação", "Drama", "Terror", "Ficção", "Comedia","Adulto"]
+    },{
+    nome:"Ana Maria",
+    idade: 19,  
+    generosFavoritos: ["Ação", "Drama", "Terror", "Ficção", "Comedia","Adulto"]
+    },{
+    nome:"João",
+    idade: 13,  
+    generosFavoritos: ["Ação", "Drama", "Terror", "Ficção", "Comedia", "Adulto"]
+    }
 ]
+
+
 
 console.log(usuario);
 
