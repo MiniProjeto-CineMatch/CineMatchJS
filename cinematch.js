@@ -1,6 +1,29 @@
 const prompt = require('prompt-sync')({sigint: true});
+
+
+const usuario = [{
+    nome: "Anderson",
+    idade: 16,
+    email: "sctec@gmail.com"   
+},{
+    nome: "Stefani",
+    idade: 19,
+    email: "sctec2@gmail.com"   
+},{
+    nome: "Adriano",
+    idade: 22,
+    email: "sctec3@gmail.com"   
+}
+]
+
+console.log(usuario);
+
+
+
+
+
 // Classes RF 09, RF10, RF 11.
-class Conteudo {
+/*class Conteudo {
     constructor(id, titulo, tipo, genero, duracaoMinutos) {
         this.id = id;
         this.titulo = titulo;
@@ -24,4 +47,5 @@ class Serie extends Conteudo {
     exibirTemporadas() {
         return `${this.titulo} - ${this.temporadas} temporadas`;
     }
-}
+}*/
+
