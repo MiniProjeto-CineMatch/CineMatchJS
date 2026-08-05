@@ -1,12 +1,11 @@
-const prompt = require('prompt-sync')({sigint: true});
+const prompt = require('prompt-sync')({ sigint: true });
 
 // ==============================
 // CLASSE PAI
 // ==============================
 
 class Conteudo {
-    constructor(titulo, tipo, generos, duracao, descricao, classificacaoIndicativa) 
-    {
+    constructor(titulo, tipo, generos, duracao, descricao, classificacaoIndicativa) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.generos = generos;
@@ -21,8 +20,7 @@ class Conteudo {
 // ==============================
 
 class Filme extends Conteudo {
-    constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) 
-    {
+    constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) {
         super(
             titulo,
             "Filme",
@@ -101,11 +99,64 @@ class Usuario {
 // LOGIN DO USUÁRIO
 // ==============================
 function fazerLogin() {
-console.log("========= LOGIN =========");
-const nome = prompt ("Digite seu nome: ")
-const idade = Number( prompt("Digite sua idade: "));
+    console.log("========= LOGIN =========");
+    const nome = prompt("Digite seu nome: ")
+    const idade = Number(prompt("Digite sua idade: ")
+    );
 
+    console.log = ("\nEscolha seu generos favoritos: ");
+
+    console.log("1 - Açao");
+    console.log("2 - Drama");
+    console.log("3 - Comedia");
+    console.log("4 - Terro");
+    console.log("5 - Ficçao");
+
+    const generosFavoritos = [];
+
+    let escolhaGenero;
+
+    do {
+        escolhaGenero = prompt("Escolha um genero(0 para finalizar):");
+        switch (escolhaGenero) {
+
+            case "1":
+                generosFavoritos.push("Açao");
+                break;
+
+            case "2":
+                generosFavoritos.push("Drama");
+                break;
+
+            case "3":
+                generosFavoritos.push("Comedia");
+                break;
+
+            case "4":
+                generosFavoritos.push("Terror");
+                break;
+
+            case "5":
+                generosFavoritos.push("Ficçao");
+                break;
+
+            case "0":
+                break;
+
+            default:
+                console.log("Opçao invalida.");
+
+        }
+    } while (escolhaGenero !== "0");
+    const usuario = new Usuario(
+        nome,
+        idade,
+        generosFavoritos
+
+    );
+    return usuario;
 }
+const usuario = fazerLogin();
 
 
 
