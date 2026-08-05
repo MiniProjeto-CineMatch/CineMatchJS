@@ -5,7 +5,8 @@ const prompt = require('prompt-sync')({sigint: true});
 // ==============================
 
 class Conteudo {
-    constructor(titulo, tipo, generos, duracao, descricao, classificacaoIndicativa) {
+    constructor(titulo, tipo, generos, duracao, descricao, classificacaoIndicativa) 
+    {
         this.titulo = titulo;
         this.tipo = tipo;
         this.generos = generos;
@@ -20,7 +21,8 @@ class Conteudo {
 // ==============================
 
 class Filme extends Conteudo {
-    constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) {
+    constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) 
+    {
         super(
             titulo,
             "Filme",
@@ -37,14 +39,7 @@ class Filme extends Conteudo {
 // ==============================
 
 class Serie extends Conteudo {
-    constructor(
-        titulo,
-        generos,
-        duracao,
-        descricao,
-        classificacaoIndicativa,
-        temporadas
-    ) {
+    constructor(titulo, generos, duracao, descricao, classificacaoIndicativa, temporadas) {
         super(
             titulo,
             "Série",
@@ -71,28 +66,18 @@ class Usuario {
 }
 
 // ==============================
-// USUÁRIOS
+// LOGIN DO USUÁRIO
 // ==============================
 
-const usuario1 = new Usuario(
-    "Anderson",
-    30,
-    ["Ação", "Drama", "Comédia"]
-);
 
-const usuario2 = new Usuario(
-    "Stefani",
-    13,
-    ["Terror", "Ficção"]
-);
 
-const usuario3 = new Usuario(
-    "Adriano",
-    13,
-    ["Terror", "Ficção"]
-);
 
-const listaUsuarios = [usuario1, usuario2, usuario3];
+// ==============================
+// FUNÇAO AQUI
+// ==============================
+
+
+
 
 // ==============================
 // CATÁLOGO
@@ -148,7 +133,7 @@ const catalogo = [filme1, filme2, serie1];
 // ==============================
 // MENU INTERATIVO
 // ==============================
-let opcao;
+let resposta;
 
 do {
 
@@ -159,11 +144,11 @@ do {
     console.log("4 - Melhor Recomendação");
     console.log("5 - Sair");
 
-    opcao = prompt("Escolha uma opção: ");
+    resposta = prompt("Escolha uma opção: ");
 
-    switch (opcao) {
+    switch (resposta) {
         case "1":
-            console.log(listaUsuarios);
+            console.log(usuario);
             break;
         case "2":
             console.log(catalogo);
@@ -180,4 +165,4 @@ do {
         default:
             console.log("Opção inválida.");
     }
-} while (opcao !== "5");
+} while (resposta !== "5");
