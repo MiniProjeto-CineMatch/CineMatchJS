@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "async": "^3.2.6"
+    "async": "^3.2.6",
+    "prompt-sync": "^4.2.0"
   }
 }

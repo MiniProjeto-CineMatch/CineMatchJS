@@ -1,57 +1,183 @@
-//const prompt = require('prompt-sync')({sigint: true});
+const prompt = require('prompt-sync')({sigint: true});
 
+// ==============================
+// CLASSE PAI
+// ==============================
 
-const listaUsuarios = [{
-    nome:"Anderson",
-    idade: 30,  
-    generosFavoritos: ["Ação", "Drama", "Terror", "Ficção", "Comedia","Adulto"]
-    },{
-    nome:"Matheus",
-    idade: 26,  
-    generosFavoritos: ["Ação", "Drama", "Terror", "Ficção", "Comedia","Adulto"]
-    },{
-    nome:"Ana Maria",
-    idade: 19,  
-    generosFavoritos: ["Ação", "Drama", "Terror", "Ficção", "Comedia","Adulto"]
-    },{
-    nome:"João",
-    idade: 13,  
-    generosFavoritos: ["Ação", "Drama", "Terror", "Ficção", "Comedia", "Adulto"]
-    }
-]
-
-
-
-console.log(usuario);
-
-
-
-
-
-// Classes RF 09, RF10, RF 11.
-/*class Conteudo {
-    constructor(id, titulo, tipo, genero, duracaoMinutos) {
-        this.id = id;
+class Conteudo {
+    constructor(titulo, tipo, generos, duracao, descricao, classificacaoIndicativa) {
         this.titulo = titulo;
         this.tipo = tipo;
-        this.genero = genero;
-        this.duracaoMinutos = duracaoMinutos;
+        this.generos = generos;
+        this.duracao = duracao;
+        this.descricao = descricao;
+        this.classificacaoIndicativa = classificacaoIndicativa;
     }
-     //uso do "this" para acessar as propriedades do objeto atual
-    exibirResumo() {
-        return `${this.titulo} (${this.tipo}) - ${this.genero}, ${this.duracaoMinutos} minutos`;
+}
+
+// ==============================
+// CLASSE FILME
+// ==============================
+
+class Filme extends Conteudo {
+    constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) {
+        super(
+            titulo,
+            "Filme",
+            generos,
+            duracao,
+            descricao,
+            classificacaoIndicativa
+        );
+    }
+}
+
+// ==============================
+// CLASSE SÉRIE
+// ==============================
+
+class Serie extends Conteudo {
+    constructor(
+        titulo,
+        generos,
+        duracao,
+        descricao,
+        classificacaoIndicativa,
+        temporadas
+    ) {
+        super(
+            titulo,
+            "Série",
+            generos,
+            duracao,
+            descricao,
+            classificacaoIndicativa
+        );
+        this.temporadas = temporadas;
+    }
+}
+
+// ==============================
+// CLASSE USUÁRIO
+// ==============================
+
+class Usuario {
+    constructor(nome, idade, generosFavoritos) {
+        this.nome = nome;
+        this.idade = idade;
+        this.generosFavoritos = generosFavoritos;
     }
 
 }
 
-// herança: Filme e Serie herdam de Conteudo
-class Serie extends Conteudo {
-    constructor(id, titulo, genero, duracaoMinutos, temporadas) {
-        super(id, titulo, 'Série', genero, duracaoMinutos);
-        this.temporadas = temporadas;
-    }
-    exibirTemporadas() {
-        return `${this.titulo} - ${this.temporadas} temporadas`;
-    }
-}*/
+// ==============================
+// USUÁRIOS
+// ==============================
 
+const usuario1 = new Usuario(
+    "Anderson",
+    30,
+    ["Ação", "Drama", "Comédia"]
+);
+
+const usuario2 = new Usuario(
+    "Stefani",
+    13,
+    ["Terror", "Ficção"]
+);
+
+const usuario3 = new Usuario(
+    "Adriano",
+    13,
+    ["Terror", "Ficção"]
+);
+
+const listaUsuarios = [usuario1, usuario2, usuario3];
+
+// ==============================
+// CATÁLOGO
+// ==============================
+
+const filme1 = new Filme(
+    "Todo Mundo em Pânico",
+    ["Comédia", "Terror"],
+    110,
+    "Uma divertida paródia de filmes de terror.",
+    18
+);
+
+const filme2 = new Filme(
+    "Spider-Man",
+    ["Ação", "Ficção"],
+    140,
+    "Peter Parker enfrenta novos desafios.",
+    12
+);
+
+const serie1 = new Serie(
+    "Breaking Bad",
+    ["Drama"],
+    50,
+    "Professor de química vira fabricante de drogas.",
+    18,
+    5
+);
+
+const catalogo = [filme1, filme2, serie1];
+
+
+// ==============================
+// TESTES
+// ==============================
+
+// console.log("===== USUÁRIOS =====");
+// console.log(listaUsuarios);
+
+// console.log("");
+
+// console.log("===== CATÁLOGO =====");
+// console.log(catalogo);
+
+// console.log("");
+
+// console.log("===== TESTE HERANÇA =====");
+// console.log(filme1);
+// console.log(serie1);
+
+
+// ==============================
+// MENU INTERATIVO
+// ==============================
+let opcao;
+
+do {
+
+    console.log("\n===== CineMatch JS =====");
+    console.log("1 - Ver Perfil");
+    console.log("2 - Ver Catálogo");
+    console.log("3 - Compatibilidade");
+    console.log("4 - Melhor Recomendação");
+    console.log("5 - Sair");
+
+    opcao = prompt("Escolha uma opção: ");
+
+    switch (opcao) {
+        case "1":
+            console.log(listaUsuarios);
+            break;
+        case "2":
+            console.log(catalogo);
+            break;
+        case "3":
+            console.log("Compatibilidade em desenvolvimento...");
+            break;
+        case "4":
+            console.log("Recomendação em desenvolvimento...");
+            break;
+        case "5":
+            console.log("Obrigado por utilizar o CineMatch!");
+            break;
+        default:
+            console.log("Opção inválida.");
+    }
+} while (opcao !== "5");
