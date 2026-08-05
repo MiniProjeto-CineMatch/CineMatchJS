@@ -53,33 +53,6 @@ class Serie extends Conteudo {
 }
 
 // ==============================
-// CLASSE USUÁRIO
-// ==============================
-
-class Usuario {
-    constructor(nome, idade, generosFavoritos) {
-        this.nome = nome;
-        this.idade = idade;
-        this.generosFavoritos = generosFavoritos;
-    }
-
-}
-
-// ==============================
-// LOGIN DO USUÁRIO
-// ==============================
-
-
-
-
-// ==============================
-// FUNÇAO AQUI
-// ==============================
-
-
-
-
-// ==============================
 // CATÁLOGO
 // ==============================
 
@@ -112,22 +85,35 @@ const catalogo = [filme1, filme2, serie1];
 
 
 // ==============================
-// TESTES
+// CLASSE USUÁRIO
 // ==============================
 
-// console.log("===== USUÁRIOS =====");
-// console.log(listaUsuarios);
+class Usuario {
+    constructor(nome, idade, generosFavoritos) {
+        this.nome = nome;
+        this.idade = idade;
+        this.generosFavoritos = generosFavoritos;
+    }
 
-// console.log("");
+}
 
-// console.log("===== CATÁLOGO =====");
-// console.log(catalogo);
+// ==============================
+// LOGIN DO USUÁRIO
+// ==============================
+function fazerLogin() {
+console.log("========= LOGIN =========");
+const nome = prompt ("Digite seu nome: ")
+const idade = Number( prompt("Digite sua idade: "));
 
-// console.log("");
+}
 
-// console.log("===== TESTE HERANÇA =====");
-// console.log(filme1);
-// console.log(serie1);
+
+
+// ==============================
+// FUNÇAO AQUI
+// ==============================
+
+
 
 
 // ==============================
