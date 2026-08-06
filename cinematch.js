@@ -99,12 +99,12 @@ class Usuario {
 // LOGIN DO USUÁRIO
 // ==============================
 function fazerLogin() {
+
     console.log("========= LOGIN =========");
     const nome = prompt("Digite seu nome: ")
-    const idade = Number(prompt("Digite sua idade: ")
-    );
+    const idade = Number(prompt("Digite sua idade: "));
 
-    console.log = ("\nEscolha seu generos favoritos: ");
+    console.log("\nEscolha seu generos favoritos: ");
 
     console.log("1 - Açao");
     console.log("2 - Drama");
@@ -116,8 +116,7 @@ function fazerLogin() {
 
     let escolhaGenero;
 
-    do {
-        escolhaGenero = prompt("Escolha um genero(0 para finalizar):");
+    do { escolhaGenero = prompt("Escolha um genero (0 para finalizar):");
         switch (escolhaGenero) {
 
             case "1":
@@ -148,6 +147,7 @@ function fazerLogin() {
 
         }
     } while (escolhaGenero !== "0");
+
     const usuario = new Usuario(
         nome,
         idade,
@@ -156,6 +156,7 @@ function fazerLogin() {
     );
     return usuario;
 }
+
 const usuario = fazerLogin();
 
 
