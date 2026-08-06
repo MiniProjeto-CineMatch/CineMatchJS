@@ -104,7 +104,7 @@ function fazerLogin() {
     const idade = Number(prompt("Digite sua idade: ")
     );
 
-    console.log = ("\nEscolha seu generos favoritos: ");
+    console.log  ("\nEscolha seu generos favoritos: ");
 
     console.log("1 - Açao");
     console.log("2 - Drama");
