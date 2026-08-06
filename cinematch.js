@@ -1,12 +1,11 @@
-const prompt = require('prompt-sync')({sigint: true});
+const prompt = require('prompt-sync')({ sigint: true });
 
 // ==============================
 // CLASSE PAI
 // ==============================
 
 class Conteudo {
-    constructor(titulo, tipo, generos, duracao, descricao, classificacaoIndicativa) 
-    {
+    constructor(titulo, tipo, generos, duracao, descricao, classificacaoIndicativa) {
         this.titulo = titulo;
         this.tipo = tipo;
         this.generos = generos;
@@ -21,8 +20,7 @@ class Conteudo {
 // ==============================
 
 class Filme extends Conteudo {
-    constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) 
-    {
+    constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) {
         super(
             titulo,
             "Filme",
@@ -119,11 +117,9 @@ function fazerLogin() {
 console.log("========= LOGIN =========");
 const nome = prompt ("Digite seu nome: ")
 const idade = Number( prompt("Digite sua idade: "));
-const novoUsuario = new Usuario(nome, idade, []);
-return novoUsuario;
 
 }
-const usuario = fazerLogin();
+
 
 
 // ==============================
