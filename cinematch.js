@@ -51,6 +51,21 @@ class Serie extends Conteudo {
         this.temporadas = temporadas;
     }
 }
+function pesquisarConteudo() {
+    const titulo = prompt("Digite o título do filme ou série: ");
+    const encontrado = buscarPorTitulo(catalogo, titulo);
+    if (encontrado) {
+        console.log("Conteúdo encontrado:");
+        console.log(`Título: ${encontrado.titulo}`);
+        console.log(`Tipo: ${encontrado.tipo}`);
+        console.log(`Gêneros: ${encontrado.generos.join(", ")}`);
+        console.log(`Duração: ${encontrado.duracao} minutos`);
+        console.log(`Descrição: ${encontrado.descricao}`);
+        console.log(`Classificação Indicativa: ${encontrado.classificacaoIndicativa}`);
+    } else {
+        console.log("Conteúdo não encontrado.");
+    }
+}
 
 // ==============================
 // CATÁLOGO
@@ -104,15 +119,22 @@ function fazerLogin() {
 console.log("========= LOGIN =========");
 const nome = prompt ("Digite seu nome: ")
 const idade = Number( prompt("Digite sua idade: "));
+const novoUsuario = new Usuario(nome, idade, []);
+return novoUsuario;
 
 }
-
+const usuario = fazerLogin();
 
 
 // ==============================
 // FUNÇAO AQUI
 // ==============================
-
+// busca por título (usa find)
+function buscarPorTitulo(catalogoConteudos, titulo) {
+  return catalogoConteudos.find(
+    (c) => c.titulo.toLowerCase() === titulo.toLowerCase()
+  );
+}
 
 
 
