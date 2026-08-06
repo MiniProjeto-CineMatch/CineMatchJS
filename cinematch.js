@@ -50,6 +50,21 @@ classificacaoIndicativa
 this.temporadas = temporadas;
 }
 }
+function pesquisarConteudo() {
+    const titulo = prompt("Digite o título do filme ou série: ");
+    const encontrado = buscarPorTitulo(catalogo, titulo);
+    if (encontrado) {
+        console.log("Conteúdo encontrado:");
+        console.log(`Título: ${encontrado.titulo}`);
+        console.log(`Tipo: ${encontrado.tipo}`);
+        console.log(`Gêneros: ${encontrado.generos.join(", ")}`);
+        console.log(`Duração: ${encontrado.duracao} minutos`);
+        console.log(`Descrição: ${encontrado.descricao}`);
+        console.log(`Classificação Indicativa: ${encontrado.classificacaoIndicativa}`);
+    } else {
+        console.log("Conteúdo não encontrado.");
+    }
+}
 
 // ==============================
 // CATÁLOGO
@@ -100,100 +115,24 @@ this.generosFavoritos = generosFavoritos;
 // LOGIN DO USUÁRIO
 // ==============================
 function fazerLogin() {
-
 console.log("========= LOGIN =========");
-const nome = prompt("Digite seu nome: ")
-const idade = Number(prompt("Digite sua idade: "));
-
-console.log("\nEscolha seu generos favoritos: ");
-
-console.log("1 - Açao");
-console.log("2 - Drama");
-console.log("3 - Comedia");
-console.log("4 - Terror");
-console.log("5 - Ficçao");
-
-const generosFavoritos = [];
-
-let escolhaGenero;
-
-do { escolhaGenero = prompt("Escolha um genero (0 para finalizar):");
-switch (escolhaGenero) {
-
-case "1":
-generosFavoritos.push("Ação");
-break;
-
-case "2":
-generosFavoritos.push("Drama");
-break;
-
-case "3":
-generosFavoritos.push("Comedia");
-break;
-
-case "4":
-generosFavoritos.push("Terror");
-break;
-
-case "5":
-generosFavoritos.push("Ficçao");
-break;
-
-case "0":
-break;
-
-default:
-console.log("Opçao invalida.");
+const nome = prompt ("Digite seu nome: ")
+const idade = Number( prompt("Digite sua idade: "));
 
 }
-} while (escolhaGenero !== "0");
-
-const usuario = new Usuario(
-nome,
-idade,
-generosFavoritos
-
-);
-return usuario;
-}
-
-const usuario = fazerLogin();
 
 
 
 // ==============================
 // FUNÇAO AQUI
 // ==============================
-// ==============================
-// FUNÇÃO DE BUSCA (find)
-// ==============================
-
-function buscarConteudo() {
-    console.log("\n===== BUSCAR CONTEÚDO =====");
-
-    const titulo = prompt("Digite o título do filme ou série: ");
-
-    const conteudoEncontrado = catalogo.find(
-        conteudo => conteudo.titulo.toLowerCase() === titulo.toLowerCase()
-    );
-
-    if (conteudoEncontrado) {
-        console.log("\n===== CONTEÚDO ENCONTRADO =====");
-        console.log(`Título: ${conteudoEncontrado.titulo}`);
-        console.log(`Tipo: ${conteudoEncontrado.tipo}`);
-        console.log(`Gêneros: ${conteudoEncontrado.generos.join(", ")}`);
-        console.log(`Duração: ${conteudoEncontrado.duracao} minutos`);
-        console.log(`Descrição: ${conteudoEncontrado.descricao}`);
-        console.log(`Classificação: ${conteudoEncontrado.classificacaoIndicativa} anos`);
-
-        if (conteudoEncontrado instanceof Serie) {
-            console.log(`Temporadas: ${conteudoEncontrado.temporadas}`);
-        }
-    } else {
-        console.log("\nConteúdo não encontrado no catálogo.");
-    }
+// busca por título (usa find)
+function buscarPorTitulo(catalogoConteudos, titulo) {
+  return catalogoConteudos.find(
+    (c) => c.titulo.toLowerCase() === titulo.toLowerCase()
+  );
 }
+
 
 
 // ==============================
