@@ -115,15 +115,19 @@ this.generosFavoritos = generosFavoritos;
 // LOGIN DO USUÁRIO
 // ==============================
 function fazerLogin() {
-console.log("========= LOGIN =========");
-const nome = prompt ("Digite seu nome: ")
-const idade = Number( prompt("Digite sua idade: "));
+    console.log("========= LOGIN =========");
+    const nome = prompt("Digite seu nome: ");
+    const idade = Number(prompt("Digite sua idade: "));
+    const generosFavoritos = prompt("Digite seus gêneros favoritos (separados por vírgula): ")
+        .split(",")
+        .map(g => g.trim());
 
+    return new Usuario(nome, idade, generosFavoritos);
 }
 
 
 
-// ==============================
+// ==============================s
 // FUNÇAO AQUI
 // ==============================
 // busca por título (usa find)
@@ -138,6 +142,9 @@ function buscarPorTitulo(catalogoConteudos, titulo) {
 // ==============================
 // MENU INTERATIVO
 // ==============================
+
+const usuario = fazerLogin();
+
 let resposta;
 
 do {
@@ -163,7 +170,7 @@ case "2":
     break;
 
 case "3":
-    buscarConteudo();
+    pesquisarConteudo();
     break;
 
 case "4":
