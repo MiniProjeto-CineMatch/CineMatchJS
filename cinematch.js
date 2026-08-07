@@ -1,7 +1,5 @@
 
 
-const prompt = require('prompt-sync')({ sigint: true });
-
 const prompt = require("prompt-sync")({ sigint: true });
 
 
@@ -19,22 +17,6 @@ this.duracao = duracao;
 this.descricao = descricao;
 this.classificacaoIndicativa = classificacaoIndicativa;
 }
-
-  constructor(
-    titulo,
-    tipo,
-    generos,
-    duracao,
-    descricao,
-    classificacaoIndicativa,
-  ) {
-    this.titulo = titulo;
-    this.tipo = tipo;
-    this.generos = generos;
-    this.duracao = duracao;
-    this.descricao = descricao;
-    this.classificacaoIndicativa = classificacaoIndicativa;
-  }
 
 }
 
@@ -55,17 +37,6 @@ classificacaoIndicativa
 );
 }
 
-  constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) {
-    super(
-      titulo,
-      "Filme",
-      generos,
-      duracao,
-      descricao,
-      classificacaoIndicativa,
-    );
-  }
-
 }
 
 // ==============================
@@ -85,25 +56,6 @@ classificacaoIndicativa
 );
 this.temporadas = temporadas;
 }
-
-  constructor(
-    titulo,
-    generos,
-    duracao,
-    descricao,
-    classificacaoIndicativa,
-    temporadas,
-  ) {
-    super(
-      titulo,
-      "Série",
-      generos,
-      duracao,
-      descricao,
-      classificacaoIndicativa,
-    );
-    this.temporadas = temporadas;
-  }
 
 }
 function pesquisarConteudo() {
@@ -154,32 +106,7 @@ const serie1 = new Serie(
 5
 );
 
-  const filme1 = new filme(
-  "Todo Mundo em Pânico",
-  ["Comédia", "Terror"],
-  110,
-  "Uma divertida paródia de filmes de terror.",
-  18,
-);
-
-const filme2 = new Filme(
-  "Spider-Man",
-  ["Ação", "Ficção"],
-  140,
-  "Peter Parker enfrenta novos desafios.",
-  12,
-);
-
-const serie1 = new Serie(
-  "Breaking Bad",
-  ["Drama"],
-  50,
-  "Professor de química vira fabricante de drogas.",
-  18,
-  5,
-
-);
-
+  
 const catalogo = [filme1, filme2, serie1];
 
 // ==============================
@@ -194,13 +121,7 @@ this.idade = idade;
 this.generosFavoritos = generosFavoritos;
 }
 
-
-  constructor(nome, idade, generosFavoritos) {
-    this.nome = nome;
-    this.idade = idade;
-    this.generosFavoritos = generosFavoritos;
-  }
-
+ 
 }
 
 // ==============================
@@ -208,26 +129,17 @@ this.generosFavoritos = generosFavoritos;
 // ==============================
 function fazerLogin() {
 
-    console.log("========= LOGIN =========");
-    const nome = prompt("Digite seu nome: ");
-    const idade = Number(prompt("Digite sua idade: "));
-    const generosFavoritos = prompt("Digite seus gêneros favoritos (separados por vírgula): ")
-        .split(",")
-        .map(g => g.trim());
-
-    return new Usuario(nome, idade, generosFavoritos);
-
   console.log("========= LOGIN =========");
   const nome = prompt("Digite seu nome: ");
   const idade = Number(prompt("Digite sua idade: "));
 
   console.log("\nEscolha seu generos favoritos: ");
 
-  console.log("1 - Açao");
+  console.log("1 - Ação");
   console.log("2 - Drama");
-  console.log("3 - Comedia");
-  console.log("4 - Terro");
-  console.log("5 - Ficçao");
+  console.log("3 - Comédia");
+  console.log("4 - Terror");
+  console.log("5 - Ficção");
 
   const generosFavoritos = [];
 
@@ -237,7 +149,7 @@ function fazerLogin() {
     escolhaGenero = prompt("Escolha um genero(0 para finalizar):");
     switch (escolhaGenero) {
       case "1":
-        generosFavoritos.push("Açao");
+        generosFavoritos.push("Ação");
         break;
 
       case "2":
@@ -245,7 +157,7 @@ function fazerLogin() {
         break;
 
       case "3":
-        generosFavoritos.push("Comedia");
+        generosFavoritos.push("Comédia");
         break;
 
       case "4":
@@ -253,14 +165,14 @@ function fazerLogin() {
         break;
 
       case "5":
-        generosFavoritos.push("Ficçao");
+        generosFavoritos.push("Ficção");
         break;
 
       case "0":
         break;
 
       default:
-        console.log("Opçao invalida.");
+        console.log("Opção inválida.");
     }
   } while (escolhaGenero !== "0");
   const usuario = new Usuario(nome, idade, generosFavoritos);
@@ -281,10 +193,10 @@ switch (true){
 }
  
 function calcularCompatibilidade( usuario, listaCatalogo){
-console.log("/n---  ANALISE DE COMPATIBILIDADE---");
+console.log("\n---  ANALISE DE COMPATIBILIDADE---");
 
 listaCatalogo.forEach ((conteudo) => {
- const gerenoEmComum = conteudo.generos.filter((generos) =>
+ const generosEmComum = conteudo.generos.filter((genero) =>
  usuario.generosFavoritos.includes(genero)
 );
 
@@ -305,10 +217,6 @@ const generosNaoExplorados = conteudo.generos.filter((genero) =>
     });
 }
 
-
-
-
-
 // ==============================s
 // FUNÇAO AQUI
 // ==============================
@@ -328,14 +236,7 @@ const usuario = fazerLogin();
 let resposta;
 
 do {
-  console.log("\n===== CineMatch JS =====");
-  console.log("1 - Ver Perfil");
-  console.log("2 - Ver Catálogo");
-  console.log("3 - Compatibilidade");
-  console.log("4 - Melhor Recomendação");
-  console.log("5 - Sair");
-
-
+ 
 console.log("\n===== CineMatch JS =====");
 console.log("1 - Ver Perfil");
 console.log("2 - Ver Catálogo");
@@ -361,8 +262,8 @@ case "3":
     break;
 
 case "4":
-    console.log("Compatibilidade em desenvolvimento...");
-    break;
+  calcularCompatibilidade(usuario, catalogo);
+  break;
 
 case "5":
     console.log("Recomendação em desenvolvimento...");
@@ -378,26 +279,6 @@ default:
 
 } while (resposta !== "6");
 
-  resposta = prompt("Escolha uma opção: ");
-
-  switch (resposta) {
-    case "1":
-      console.log(usuario);
-      break;
-    case "2":
-      console.log(catalogo);
-      break;
-    case "3":
-      console.log("Compatibilidade em desenvolvimento...");
-      break;
-    case "4":
-      console.log("Recomendação em desenvolvimento...");
-      break;
-    case "5":
-      console.log("Obrigado por utilizar o CineMatch!");
-      break;
-    default:
-      console.log("Opção inválida.");
-  }
- while (resposta !== "5");
+ 
+ 
 
