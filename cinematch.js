@@ -179,6 +179,11 @@ function fazerLogin() {
   return usuario;
 
 }
+const usuario = fazerLogin();
+
+// ==============================
+// FUNÇAO AQUI
+// =======================================================================================
 
 function classificarCompatibilidade(percentual) {
 
@@ -216,13 +221,9 @@ const generosNaoExplorados = conteudo.generos.filter((genero) =>
         console.log(`Classificação: ${classificacao}`);
     });
 }
+// ==========================================================================================
 
-const usuario = fazerLogin();
 
-// ==============================s
-// FUNÇAO AQUI
-// ==============================
-// busca por título (usa find)
 function buscarPorTitulo(catalogoConteudos, titulo) {
   return catalogoConteudos.find(
     (c) => c.titulo.toLowerCase() === titulo.toLowerCase(),
