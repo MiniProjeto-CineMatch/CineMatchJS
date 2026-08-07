@@ -217,6 +217,8 @@ const generosNaoExplorados = conteudo.generos.filter((genero) =>
     });
 }
 
+const usuario = fazerLogin();
+
 // ==============================s
 // FUNÇAO AQUI
 // ==============================
@@ -230,8 +232,6 @@ function buscarPorTitulo(catalogoConteudos, titulo) {
 // ==============================
 // MENU INTERATIVO
 // ==============================
-
-const usuario = fazerLogin();
 
 let resposta;
 
