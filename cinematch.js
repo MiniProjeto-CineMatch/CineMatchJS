@@ -1,7 +1,4 @@
-
-
 const prompt = require("prompt-sync")({ sigint: true });
-
 
 // ==============================
 // CLASSE PAI
@@ -105,9 +102,19 @@ const serie1 = new Serie(
   18,
   5
 );
-
-
 const catalogo = [filme1, filme2, serie1];
+
+// ==============================
+// CLOSURE
+// ==============================
+function criarContadorAnalises() {
+  let contador = 0;
+  return function () {
+    contador++;
+    return contador;
+  };
+}
+const contarAnalise = criarContadorAnalises();
 
 // ==============================
 // CLASSE USUÁRIO
@@ -119,6 +126,15 @@ class Usuario {
     this.nome = nome;
     this.idade = idade;
     this.generosFavoritos = generosFavoritos;
+  }
+
+  exibirPerfil() {
+
+    console.log("\n===== PERFIL =====");
+    console.log(`Nome: ${this.nome}`);
+    console.log(`Idade: ${this.idade}`);
+    console.log(`Gêneros favoritos: ${this.generosFavoritos.join(", ")}`);
+
   }
 }
 
@@ -179,9 +195,10 @@ function fazerLogin() {
 }
 const usuario = fazerLogin();
 
+
 // ==============================
-// FUNÇAO AQUI
-// =======================================================================================
+// FUNÇAO DE COMPATIBILIDADE
+// ==============================
 
 function classificarCompatibilidade(percentual) {
 
@@ -219,14 +236,32 @@ function calcularCompatibilidade(usuario, listaCatalogo) {
     console.log(`Classificação: ${classificacao}`);
   });
 }
-// ==========================================================================================
 
+// ==============================
+// MELHOR RECOMENDAÇÃO
+// ==============================
 
 function buscarPorTitulo(catalogoConteudos, titulo) {
   return catalogoConteudos.find(
     (c) => c.titulo.toLowerCase() === titulo.toLowerCase(),
   );
 }
+
+// ==============================
+// PROMISE
+// ==============================
+
+
+// ==============================
+// CALLBACK
+// ==============================
+
+
+// ==============================
+// Async/Await
+// ==============================
+
+
 
 // ==============================
 // MENU INTERATIVO
@@ -249,7 +284,7 @@ do {
   switch (resposta) {
 
     case "1":
-      console.log(usuario);
+      usuario.exibirPerfil();
       break;
 
     case "2":
@@ -277,7 +312,3 @@ do {
   }
 
 } while (resposta !== "6");
-
-
-
-
