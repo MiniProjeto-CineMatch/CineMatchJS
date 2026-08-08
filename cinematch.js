@@ -1,7 +1,4 @@
-
-
 const prompt = require("prompt-sync")({ sigint: true });
-
 
 // ==============================
 // CLASSE PAI
@@ -17,9 +14,7 @@ this.duracao = duracao;
 this.descricao = descricao;
 this.classificacaoIndicativa = classificacaoIndicativa;
 }
-exibirResumo() {
-        return `${this.titulo} (${this.tipo}) - ${this.duracao} minutos`;
-    }
+
 }
 
 
@@ -30,7 +25,14 @@ exibirResumo() {
 class Filme extends Conteudo {
 
 constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) {
-super(titulo, "Filme", generos, duracao, descricao, classificacaoIndicativa);
+super(
+titulo,
+"Filme",
+generos,
+duracao,
+descricao,
+classificacaoIndicativa
+);
 }
 
 }
@@ -42,57 +44,80 @@ super(titulo, "Filme", generos, duracao, descricao, classificacaoIndicativa);
 class Serie extends Conteudo {
 
 constructor(titulo, generos, duracao, descricao, classificacaoIndicativa, temporadas) {
-super(titulo, "Série", generos, duracao, descricao, classificacaoIndicativa);
+super(
+titulo,
+"Série",
+generos,
+duracao,
+descricao,
+classificacaoIndicativa
+);
 this.temporadas = temporadas;
 }
-exibirResumo() {
-        return `${this.titulo} tem ${this.temporadas} temporada(s).`;
-    }
+
+}
+function pesquisarConteudo() {
+  const titulo = prompt("Digite o título do filme ou série: ");
+  const encontrado = buscarPorTitulo(catalogo, titulo);
+  if (encontrado) {
+    console.log("Conteúdo encontrado:");
+    console.log(`Título: ${encontrado.titulo}`);
+    console.log(`Tipo: ${encontrado.tipo}`);
+    console.log(`Gêneros: ${encontrado.generos.join(", ")}`);
+    console.log(`Duração: ${encontrado.duracao} minutos`);
+    console.log(`Descrição: ${encontrado.descricao}`);
+    console.log(
+      `Classificação Indicativa: ${encontrado.classificacaoIndicativa}`,
+    );
+  } else {
+    console.log("Conteúdo não encontrado.");
+  }
 }
 
-// CLASSE USUÁRIO
-// ==============================
-
-class Usuario {
-
-constructor(nome, idade, generosFavoritos) {
-this.nome = nome;
-this.idade = idade;
-this.generosFavoritos = generosFavoritos;
-}
- 
-}
 // ==============================
 // CATÁLOGO
 // ==============================
 
 const filme1 = new Filme(
 
-"Todo Mundo em Pânico",
-["Comédia", "Terror"],
-110,
-"Uma divertida paródia de filmes de terror.",
-18
+  "Todo Mundo em Pânico",
+  ["Comédia", "Terror"],
+  110,
+  "Uma divertida paródia de filmes de terror.",
+  18
 );
 
 const filme2 = new Filme(
-"Spider-Man",
-["Ação", "Ficção"],
-140,
-"Peter Parker enfrenta novos desafios.",
-12
+  "Spider-Man",
+  ["Ação", "Ficção"],
+  140,
+  "Peter Parker enfrenta novos desafios.",
+  12
 );
 
 const serie1 = new Serie(
-"Breaking Bad",
-["Drama"],
-50,
-"Professor de química vira fabricante de drogas.",
-18,
-5
+  "Breaking Bad",
+  ["Drama"],
+  50,
+  "Professor de química vira fabricante de drogas.",
+  18,
+  5
 );
+
   
 const catalogo = [filme1, filme2, serie1];
+
+// ==============================
+// CLOSURE
+// ==============================
+function criarContadorAnalises() {
+  let contador = 0;
+  return function () {
+    contador++;
+    return contador;
+  };
+}
+const contarAnalise = criarContadorAnalises();
 
 // ==============================
 // FUNÇAO AQUI
@@ -119,96 +144,18 @@ function pesquisarConteudo() {
 }
 
 // ==============================
-// busca por título (usa find)
-function buscarPorTitulo(catalogoConteudos, titulo) {
-  return catalogoConteudos.find(
-    (c) => c.titulo.toLowerCase() === titulo.toLowerCase(),
-  );
+
+class Usuario {
+
+constructor(nome, idade, generosFavoritos) {
+this.nome = nome;
+this.idade = idade;
+this.generosFavoritos = generosFavoritos;
 }
 
-function classificarCompatibilidade(percentual) {
-  if (percentual >= 80) 
-    return "Alta";
-  else if (percentual >= 50) 
-    return "Média";
-  else if (percentual >= 20) 
-    return "Baixa";
-  else 
-    return "Muito baixa";
-}
-
- function calcularCompatibilidade(usuario, listaCatalogo) {
-  console.log("---  ANALISE DE COMPATIBILIDADE---");6
-  
  
-  listaCatalogo.forEach((conteudo) => {
-    const generosEmComum = conteudo.generos.filter((genero) =>
-      usuario.generosFavoritos.includes(genero)
-    );
- 
-    const generosNaoExplorados = conteudo.generos.filter((genero) =>
-      !usuario.generosFavoritos.includes(genero)
-    );
- 
-    const percentual = Math.round(
-      (generosEmComum.length / conteudo.generos.length) * 100
-    );
-    const classificacao = classificarCompatibilidade(percentual);
- 
-    console.log(`\nTítulo: ${conteudo.titulo}`);
-    console.log(`Tipo: ${conteudo.tipo}`);
-    console.log(`Compatibilidade: ${percentual}%`);
-    console.log(`Gêneros em comum: ${generosEmComum.join(", ") || "Nenhum"}`);
-    console.log(`Gêneros não explorados: ${generosNaoExplorados.join(", ") || "Nenhum"}`);
-    console.log(`Classificação: ${classificacao}`);
-  });
 }
 
-function gerarCompatibilidades(usuario,listaCatalogo) {
-
-   return listaCatalogo.map((conteudo) => {
-   const generosEmComum =  conteudo.generos.filter((genero) =>
-    usuario.generosFavoritos.includes(genero));
-
-  const generosNaoExplorados =conteudo.generos.filter((genero) => 
-  !usuario.generosFavoritos.includes(genero));
-
-  const percentual = Math.round((generosEmComum.length / conteudo.generos.length) * 100);
-  return {
-  conteudo: conteudo,
-  percentual: percentual,
-  classificacao: classificarCompatibilidade(percentual),
-  generosEmComum: generosEmComum,
-  generosNaoExplorados: generosNaoExplorados
-        };
-    });
-}
-function verificarTodosGeneros(usuario, conteudo) {
-
-    return conteudo.generos.every((genero) =>
-     usuario.generosFavoritos.includes(genero)
-    );
-}
-
-function encontrarMaiorCompatibilidade(resultados) {
-
-    return resultados.reduce((maior, atual) => {
-
-    if (atual.percentual > maior.percentual) {          
-    return atual;
-    }
-
-   return maior;
-   });
-}
-
- function calcularTempoTotalCatalogo(listaCatalogo) {
-
-    return listaCatalogo.reduce(
-        (total, conteudo) => total + conteudo.duracao,
-        0
-    );
-}
 // ==============================
 // LOGIN DO USUÁRIO
 // ==============================
@@ -265,9 +212,55 @@ function fazerLogin() {
 
 }
 
+function classificarCompatibilidade(percentual) {
+
+switch (true){
+  case (percentual >= 80):
+    return "Alta afinidade";
+  case (percentual >= 50):
+    return "Média afinidade";
+  default:
+    return "baixa afinidade";
+  }
+}
+ 
+function calcularCompatibilidade( usuario, listaCatalogo){
+console.log("\n---  ANALISE DE COMPATIBILIDADE---");
+
+listaCatalogo.forEach ((conteudo) => {
+ const generosEmComum = conteudo.generos.filter((genero) =>
+ usuario.generosFavoritos.includes(genero)
+);
+
+const generosNaoExplorados = conteudo.generos.filter((genero) =>
+            !usuario.generosFavoritos.includes(genero)
+        );
+ const percentual = Math.round(
+            (generosEmComum.length / conteudo.generos.length) * 100
+        );
+        const classificacao = classificarCompatibilidade(percentual);
+
+        console.log(`\nTítulo: ${conteudo.titulo}`);
+        console.log(`Tipo: ${conteudo.tipo}`);
+        console.log(`Compatibilidade: ${percentual}%`);
+        console.log(`Gêneros em comum: ${generosEmComum.join(", ") || "Nenhum"}`);
+        console.log(`Gêneros não explorados: ${generosNaoExplorados.join(", ") || "Nenhum"}`);
+        console.log(`Classificação: ${classificacao}`);
+    });
+}
+
 const usuario = fazerLogin();
 
- 
+// ==============================s
+// FUNÇAO AQUI
+// ==============================
+// busca por título (usa find)
+function buscarPorTitulo(catalogoConteudos, titulo) {
+  return catalogoConteudos.find(
+    (c) => c.titulo.toLowerCase() === titulo.toLowerCase(),
+  );
+}
+
 // ==============================
 // MENU INTERATIVO
 // ==============================
@@ -275,48 +268,49 @@ const usuario = fazerLogin();
 let resposta;
 
 do {
- 
-console.log("\n===== CineMatch JS =====");
-console.log("1 - Ver Perfil");
-console.log("2 - Ver Catálogo");
-console.log("3 - Buscar Conteúdo");
-console.log("4 - Compatibilidade");
-console.log("5 - Melhor Recomendação");
-console.log("6 - Sair");
 
-resposta = prompt("Escolha uma opção: ");
+  console.log("\n===== CineMatch JS =====");
+  console.log("1 - Ver Perfil");
+  console.log("2 - Ver Catálogo");
+  console.log("3 - Buscar Conteúdo");
+  console.log("4 - Compatibilidade");
+  console.log("5 - Melhor Recomendação");
+  console.log("6 - Sair");
 
-switch (resposta) {
+  resposta = prompt("Escolha uma opção: ");
 
-case "1":
-    console.log(usuario);
-    break;
+  switch (resposta) {
 
-case "2":
-    console.log(catalogo);
-    break;
+    case "1":
+      usuario.exibirPerfil();
+      break;
 
-case "3":
-    pesquisarConteudo();
-    break;
+    case "2":
+      console.log(catalogo);
+      break;
 
-case "4":
-  calcularCompatibilidade(usuario, catalogo);
-  break;
+    case "3":
+      pesquisarConteudo();
+      break;
 
-case "5":
-    console.log("Recomendação em desenvolvimento...");
-    break;
+    case "4":
+      calcularCompatibilidade(usuario, catalogo);
+      break;
 
-case "6":
-    console.log("Obrigado por utilizar o CineMatch!");
-    break;
+    case "5":
+      console.log("Recomendação em desenvolvimento...");
+      break;
 
-default:
-    console.log("Opção inválida.");
-}
+    case "6":
+      console.log("Obrigado por utilizar o CineMatch!");
+      break;
+
+    default:
+      console.log("Opção inválida.");
+  }
 
 } while (resposta !== "6");
 
  
  
+
