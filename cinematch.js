@@ -17,8 +17,11 @@ this.duracao = duracao;
 this.descricao = descricao;
 this.classificacaoIndicativa = classificacaoIndicativa;
 }
-
+exibirResumo() {
+        return `${this.titulo} (${this.tipo}) - ${this.duracao} minutos`;
+    }
 }
+
 
 // ==============================
 // CLASSE FILME
@@ -27,14 +30,7 @@ this.classificacaoIndicativa = classificacaoIndicativa;
 class Filme extends Conteudo {
 
 constructor(titulo, generos, duracao, descricao, classificacaoIndicativa) {
-super(
-titulo,
-"Filme",
-generos,
-duracao,
-descricao,
-classificacaoIndicativa
-);
+super(titulo, "Filme", generos, duracao, descricao, classificacaoIndicativa);
 }
 
 }
@@ -46,36 +42,26 @@ classificacaoIndicativa
 class Serie extends Conteudo {
 
 constructor(titulo, generos, duracao, descricao, classificacaoIndicativa, temporadas) {
-super(
-titulo,
-"Série",
-generos,
-duracao,
-descricao,
-classificacaoIndicativa
-);
+super(titulo, "Série", generos, duracao, descricao, classificacaoIndicativa);
 this.temporadas = temporadas;
 }
-
-}
-function pesquisarConteudo() {
-  const titulo = prompt("Digite o título do filme ou série: ");
-  const encontrado = buscarPorTitulo(catalogo, titulo);
-  if (encontrado) {
-    console.log("Conteúdo encontrado:");
-    console.log(`Título: ${encontrado.titulo}`);
-    console.log(`Tipo: ${encontrado.tipo}`);
-    console.log(`Gêneros: ${encontrado.generos.join(", ")}`);
-    console.log(`Duração: ${encontrado.duracao} minutos`);
-    console.log(`Descrição: ${encontrado.descricao}`);
-    console.log(
-      `Classificação Indicativa: ${encontrado.classificacaoIndicativa}`,
-    );
-  } else {
-    console.log("Conteúdo não encontrado.");
-  }
+exibirResumo() {
+        return `${this.titulo} tem ${this.temporadas} temporada(s).`;
+    }
 }
 
+// CLASSE USUÁRIO
+// ==============================
+
+class Usuario {
+
+constructor(nome, idade, generosFavoritos) {
+this.nome = nome;
+this.idade = idade;
+this.generosFavoritos = generosFavoritos;
+}
+ 
+}
 // ==============================
 // CATÁLOGO
 // ==============================
@@ -105,25 +91,124 @@ const serie1 = new Serie(
 18,
 5
 );
-
   
 const catalogo = [filme1, filme2, serie1];
 
 // ==============================
-// CLASSE USUÁRIO
+// FUNÇAO AQUI
+
+function pesquisarConteudo() {
+  const titulo = prompt("Digite o título do filme ou série: ");
+  const encontrado = buscarPorTitulo(catalogo, titulo);
+  if (encontrado) {
+    console.log("Conteúdo encontrado:");
+    console.log(`Título: ${encontrado.titulo}`);
+    console.log(`Tipo: ${encontrado.tipo}`);
+    console.log(`Gêneros: ${encontrado.generos.join(", ")}`);
+    console.log(`Duração: ${encontrado.duracao} minutos`);
+    console.log(`Descrição: ${encontrado.descricao}`);
+    console.log(
+      `Classificação Indicativa: ${encontrado.classificacaoIndicativa}`,
+    );
+    if (encontrado instanceof Serie) {
+      console.log(`Temporadas: ${encontrado.temporadas}`);
+    }
+  } else {
+    console.log("\nConteúdo não encontrado.");
+  }
+}
+
 // ==============================
-
-class Usuario {
-
-constructor(nome, idade, generosFavoritos) {
-this.nome = nome;
-this.idade = idade;
-this.generosFavoritos = generosFavoritos;
+// busca por título (usa find)
+function buscarPorTitulo(catalogoConteudos, titulo) {
+  return catalogoConteudos.find(
+    (c) => c.titulo.toLowerCase() === titulo.toLowerCase(),
+  );
 }
 
+function classificarCompatibilidade(percentual) {
+  if (percentual >= 80) 
+    return "Alta";
+  else if (percentual >= 50) 
+    return "Média";
+  else if (percentual >= 20) 
+    return "Baixa";
+  else 
+    return "Muito baixa";
+}
+
+ function calcularCompatibilidade(usuario, listaCatalogo) {
+  console.log("---  ANALISE DE COMPATIBILIDADE---");6
+  
  
+  listaCatalogo.forEach((conteudo) => {
+    const generosEmComum = conteudo.generos.filter((genero) =>
+      usuario.generosFavoritos.includes(genero)
+    );
+ 
+    const generosNaoExplorados = conteudo.generos.filter((genero) =>
+      !usuario.generosFavoritos.includes(genero)
+    );
+ 
+    const percentual = Math.round(
+      (generosEmComum.length / conteudo.generos.length) * 100
+    );
+    const classificacao = classificarCompatibilidade(percentual);
+ 
+    console.log(`\nTítulo: ${conteudo.titulo}`);
+    console.log(`Tipo: ${conteudo.tipo}`);
+    console.log(`Compatibilidade: ${percentual}%`);
+    console.log(`Gêneros em comum: ${generosEmComum.join(", ") || "Nenhum"}`);
+    console.log(`Gêneros não explorados: ${generosNaoExplorados.join(", ") || "Nenhum"}`);
+    console.log(`Classificação: ${classificacao}`);
+  });
 }
 
+function gerarCompatibilidades(usuario,listaCatalogo) {
+
+   return listaCatalogo.map((conteudo) => {
+   const generosEmComum =  conteudo.generos.filter((genero) =>
+    usuario.generosFavoritos.includes(genero));
+
+  const generosNaoExplorados =conteudo.generos.filter((genero) => 
+  !usuario.generosFavoritos.includes(genero));
+
+  const percentual = Math.round((generosEmComum.length / conteudo.generos.length) * 100);
+  return {
+  conteudo: conteudo,
+  percentual: percentual,
+  classificacao: classificarCompatibilidade(percentual),
+  generosEmComum: generosEmComum,
+  generosNaoExplorados: generosNaoExplorados
+        };
+    });
+}
+function verificarTodosGeneros(usuario, conteudo) {
+
+    return conteudo.generos.every((genero) =>
+     usuario.generosFavoritos.includes(genero)
+    );
+}
+
+function encontrarMaiorCompatibilidade(resultados) {
+
+    return resultados.reduce((maior, atual) => {
+
+    if (atual.percentual > maior.percentual) {          
+    return atual;
+    }
+
+   return maior;
+   });
+}
+
+ function calcularTempoTotalCatalogo(listaCatalogo) {
+
+    return listaCatalogo.reduce(
+        (total, conteudo) => total + conteudo.duracao,
+        0
+    );
+}
 // ==============================
 // LOGIN DO USUÁRIO
 // ==============================
@@ -180,55 +265,9 @@ function fazerLogin() {
 
 }
 
-function classificarCompatibilidade(percentual) {
-
-switch (true){
-  case (percentual >= 80):
-    return "Alta afinidade";
-  case (percentual >= 50):
-    return "Média afinidade";
-  default:
-    return "baixa afinidade";
-  }
-}
- 
-function calcularCompatibilidade( usuario, listaCatalogo){
-console.log("\n---  ANALISE DE COMPATIBILIDADE---");
-
-listaCatalogo.forEach ((conteudo) => {
- const generosEmComum = conteudo.generos.filter((genero) =>
- usuario.generosFavoritos.includes(genero)
-);
-
-const generosNaoExplorados = conteudo.generos.filter((genero) =>
-            !usuario.generosFavoritos.includes(genero)
-        );
- const percentual = Math.round(
-            (generosEmComum.length / conteudo.generos.length) * 100
-        );
-        const classificacao = classificarCompatibilidade(percentual);
-
-        console.log(`\nTítulo: ${conteudo.titulo}`);
-        console.log(`Tipo: ${conteudo.tipo}`);
-        console.log(`Compatibilidade: ${percentual}%`);
-        console.log(`Gêneros em comum: ${generosEmComum.join(", ") || "Nenhum"}`);
-        console.log(`Gêneros não explorados: ${generosNaoExplorados.join(", ") || "Nenhum"}`);
-        console.log(`Classificação: ${classificacao}`);
-    });
-}
-
 const usuario = fazerLogin();
 
-// ==============================s
-// FUNÇAO AQUI
-// ==============================
-// busca por título (usa find)
-function buscarPorTitulo(catalogoConteudos, titulo) {
-  return catalogoConteudos.find(
-    (c) => c.titulo.toLowerCase() === titulo.toLowerCase(),
-  );
-}
-
+ 
 // ==============================
 // MENU INTERATIVO
 // ==============================
@@ -281,4 +320,3 @@ default:
 
  
  
-
